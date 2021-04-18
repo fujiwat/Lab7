@@ -32,40 +32,42 @@ public class Main {
             Scanner scanner;
             String strLine;
             PhoneStore store = new PhoneStore("MyShop2");
-            try {
-                scanner = new Scanner(new File("lab7_1_input.csv"));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                return;
-            }
-            // read file
-            while (scanner.hasNextLine()) {
-                String brand, imei, operatingSystem;
-                String line = scanner.nextLine();
-                if (line.isEmpty()) {
-                    continue;
-                }
-                String[] items = line.split(",");
-                // trim: eliminates leading and trailing spaces
-                brand = (0 < items.length) ? items[0].trim() : "";
-                imei = (1 < items.length) ? items[1].trim() : "";
-                operatingSystem = (2 < items.length) ? items[2].trim() : "";
-                if (brand.equals("")) {
-                    // skip this line
-                    continue;
-                }
-                if (imei.equals("")) {
-                    // standard phone
-                    store.add(new Phone(brand));
-                } else {
-                    if (operatingSystem.equals("")) {
-                        // error no operatingSystem
-                    } else {
-                        store.add(new SmartPhone(brand, imei, OperatingSystem.valueOf(operatingSystem) ));
-                    }
-                }
-            }
-            scanner.close();
+            store.addPhones("lab7_1_input.csv");
+
+//            try {
+//                scanner = new Scanner(new File("lab7_1_input.csv"));
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//                return;
+//            }
+//            // read file
+//            while (scanner.hasNextLine()) {
+//                String brand, imei, operatingSystem;
+//                String line = scanner.nextLine();
+//                if (line.isEmpty()) {
+//                    continue;
+//                }
+//                String[] items = line.split(",");
+//                // trim: eliminates leading and trailing spaces
+//                brand = (0 < items.length) ? items[0].trim() : "";
+//                imei = (1 < items.length) ? items[1].trim() : "";
+//                operatingSystem = (2 < items.length) ? items[2].trim() : "";
+//                if (brand.equals("")) {
+//                    // skip this line
+//                    continue;
+//                }
+//                if (imei.equals("")) {
+//                    // standard phone
+//                    store.add(new Phone(brand));
+//                } else {
+//                    if (operatingSystem.equals("")) {
+//                        // error no operatingSystem
+//                    } else {
+//                        store.add(new SmartPhone(brand, imei, OperatingSystem.valueOf(operatingSystem) ));
+//                    }
+//                }
+//            }
+//            scanner.close();
             store.listSmartPhones();
             System.out.println("Number os SmartPhones = " + store.numberOfSmartPhones());
             System.out.println("phone ID by IMEI='" + "IMEI1" + "' =" + store.phoneByImei("IMEI1"));

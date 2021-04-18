@@ -2,6 +2,10 @@ package lab7;
 
 import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 
 public class PhoneStore {
     private String name;
@@ -19,6 +23,28 @@ public class PhoneStore {
         // standard phone
         phones.add(new Phone(brand));
     }
+
+    public void addPhones( String filename ){
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(new File(filename));
+        }catch( FileNotFoundException e){
+            e.printStackTrace();
+            return;
+        }
+        while( scanner.hasNextLine()){
+            String line = scanner.nextLine();
+            String[] items = line.split(",");
+            if( items.length == 1 ){
+                phones.add( new Phone( items[0].trim()));
+            }else{
+                OperatingSystem os = OperatingSystem.valueOf(items[2].trim());
+                phones.add( new SmartPhone(items[0].trim(), items[1].trim(), os));
+            }
+        }
+        scanner.close();
+    }
+
     public void remove(Phone phone) {
         phones.remove(phone);
     }
